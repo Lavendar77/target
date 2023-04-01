@@ -39,40 +39,42 @@ function confirmTargetDomain(url) {
 function applyTargetRulesToApp(rules) {
     let currentAppPath = window.location.pathname;
 
-    let alerts = rules.filter((rule) => currentAppPath.includes(rule.page));
+    let alerts = rules.filter((rule) => currentAppPath.includes(rule.page) || rule.page == null);
     let alertsToShow = [];
 
     alerts.forEach((alert) => {
+        let page = alert.page ? alert.page : '';
+
         if (alert.show_alert) {
-            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, alert.page)) {
+            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, page)) {
                 alertsToShow.push({
                     id: alert.id,
                     text: alert.alert_text,
                 });
-            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath.replace('/', ''), alert.page)) {
+            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath.replace('/', ''), page)) {
                 alertsToShow.push({
                     id: alert.id,
                     text: alert.alert_text,
                 });
-            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), alert.page)) {
+            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), page)) {
                 alertsToShow.push({
                     id: alert.id,
                     text: alert.alert_text,
                 });
-            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, alert.page)) {
+            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, page)) {
                 alertsToShow.push({
                     id: alert.id,
                     text: alert.alert_text,
                 });
             }
         } else {
-            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, alert.page)) {
+            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, page)) {
                 alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath.replace('/', ''), alert.page)) {
+            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath.replace('/', ''), page)) {
                 alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), alert.page)) {
+            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), page)) {
                 alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, alert.page)) {
+            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, page)) {
                 alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
             }
         }
@@ -102,7 +104,6 @@ function targetRuleContains(path, page) {
  * @returns Boolean
  */
 function targetRuleExact(path, page) {
-    console.log(path, page);
     return path == page;
 }
 
