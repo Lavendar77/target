@@ -23,13 +23,14 @@
       :domainId="domain_id"
       :domainRuleEnum="rules"
       :errors="errors"
+      @openDomainFormDialog="openDomainFormDialog"
     />
 
     <v-dialog
       v-model="openDomainForm"
       width="1024"
     >
-      <DomainForm @closeDomainFormDialog="openDomainForm = false" />
+      <DomainForm @closeDomainFormDialog="openDomainForm = false" :domain="domain" />
     </v-dialog>
   </AuthenticatedLayout>
 </template>
@@ -37,23 +38,36 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { ref } from 'vue';
 import DomainForm from '@/Components/DomainForm.vue';
 import DomainList from '@/Components/DomainList.vue';
+</script>
 
-defineProps({
-  domains: {
-    type: Array,
+<script>
+export default {
+  props: {
+    domains: {
+      type: Array,
+    },
+    domain_id: {
+      type: String,
+      required: false,
+    },
+    rules: {
+      type: Array
+    },
+    errors: Object
   },
-  domain_id: {
-    type: String,
-    required: false,
+  data() {
+    return {
+      openDomainForm: false,
+      domain: null,
+    }
   },
-  rules: {
-    type: Array
-  },
-  errors: Object
-});
-
-const openDomainForm = ref(false);
+  methods: {
+    openDomainFormDialog(domain) {
+      this.domain = domain;
+      this.openDomainForm = true;
+    }
+  }
+}
 </script>

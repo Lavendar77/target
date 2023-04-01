@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreDomainRequest;
+use App\Http\Requests\UpdateDomainRequest;
 use App\Models\Domain;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
@@ -25,6 +26,31 @@ class DomainController extends Controller
         ]);
 
         session()->flash('message', 'Domain created successfully.');
+
+        return redirect()->route('dashboard', [
+            'd' => $domain->id,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \App\Http\Requests\UpdateDomainRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateDomainRequest $request, Domain $domain): RedirectResponse
+    {
+        abort_if(
+            $domain->user_id !== auth()->user()->id,
+            Response::HTTP_UNAUTHORIZED,
+        );
+
+        $domain->updateOrFail([
+            'name' => $request->name,
+            'base_url' => $request->base_url,
+        ]);
+
+        session()->flash('message', 'Domain updated successfully.');
 
         return redirect()->route('dashboard', [
             'd' => $domain->id,

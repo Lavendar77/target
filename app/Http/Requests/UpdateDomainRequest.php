@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreDomainRequest extends FormRequest
+class UpdateDomainRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class StoreDomainRequest extends FormRequest
                 'required',
                 'string',
                 'max:50',
-                Rule::unique('domains', 'name')->where('user_id', $this->user()->id),
+                Rule::unique('domains', 'name')->where('user_id', $this->user()->id)->ignore($this->domain),
             ],
             'base_url' => [
                 'required',

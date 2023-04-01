@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/domains', [DomainController::class, 'store'])->name('domain.store');
+    Route::put('/domains/{domain}', [DomainController::class, 'update'])->name('domain.update');
     Route::delete('/domains/{domain}', [DomainController::class, 'destroy'])->name('domain.destroy');
     Route::post('/domains/{domain}/rules', [DomainRuleController::class, 'store'])->name('domain.rule.store');
 });

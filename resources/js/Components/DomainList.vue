@@ -24,7 +24,14 @@
     <v-card class="mt-5 mx-auto" v-if="domain">
       <v-card-title>
         <div class="d-flex">
-          {{ domain.name }}
+          <v-btn
+            prepend-icon="mdi-pencil"
+            variant="text"
+            color="primary"
+            @click="editDomain(domain)"
+          >
+            {{ domain.name }}
+          </v-btn>
           <v-btn
             prepend-icon="mdi-delete"
             color="error"
@@ -36,14 +43,12 @@
         </div>
       </v-card-title>
 
-      <v-card-subtitle>
-        <a :href="domain.base_url" target="_blank">
+      <v-code class="py-3 pa-4" v-if="domain.rules.length">
+        Add this script to the &lt;head&gt; of your domain
+        <a :href="domain.base_url" target="_blank" class="text-info">
           {{ domain.base_url }}
         </a>
-      </v-card-subtitle>
-
-      <v-code class="py-3 pa-4" v-if="domain.rules.length">
-        Add this script to the &lt;head&gt; of your domain:<br />
+        :<br />
         <b v-html="script"></b>
       </v-code>
 
@@ -316,6 +321,9 @@ export default {
       if (confirm('Are you sure you want to delete this domain?')) {
         router.delete(route('domain.destroy', { domain: this.domain.id }))
       }
+    },
+    editDomain(domain) {
+      this.$emit("openDomainFormDialog", domain);
     }
   }
 }
