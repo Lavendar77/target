@@ -21,7 +21,19 @@
     </v-slide-group>
 
     <v-card class="mt-5 mx-auto" v-if="domain">
-      <v-card-title>{{ domain.name }}</v-card-title>
+      <v-card-title>
+        <div class="d-flex">
+          {{ domain.name }}
+          <v-btn
+            prepend-icon="mdi-delete"
+            color="error"
+            variant="plain"
+            @click="deleteDomain"
+          >
+            Delete Domain
+          </v-btn>
+        </div>
+      </v-card-title>
 
       <v-card-subtitle>
         <a :href="domain.base_url" target="_blank">
@@ -277,6 +289,11 @@ export default {
     resetDomainRules() {
       this.domainRules = [new DomainRuleGroup()];
     },
+    deleteDomain() {
+      if (confirm('Are you sure you want to delete this domain?')) {
+        router.delete(route('domain.destroy', { domain: this.domain.id }))
+      }
+    }
   }
 }
 </script>
