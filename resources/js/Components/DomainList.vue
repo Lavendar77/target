@@ -58,7 +58,7 @@
           icon="$error"
           title="Invalid data"
           :text="errors.domain_rules"
-          v-if="errors"
+          v-if="Object.keys(errors).length"
         ></v-alert>
 
         <v-card-text v-for="(domainRule, index) in domainRules" :key="index">
