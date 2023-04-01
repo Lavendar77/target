@@ -42,6 +42,11 @@
         </a>
       </v-card-subtitle>
 
+      <v-code class="py-3 pa-4" v-if="domain.rules.length">
+        Add this script to the &lt;head&gt; of your domain:<br />
+        <b>{{ script }}</b>
+      </v-code>
+
       <v-form ref="domainRuleForm" @submit.prevent="submitDomainRule">
         <v-btn
           prepend-icon="mdi-plus"
@@ -204,7 +209,9 @@ export default {
 
       let domain = this.domains.filter((domain) => domain.id == this.domainId)[0];
 
-      this.setDomainRules(domain);
+      if (domain) {
+        this.setDomainRules(domain);
+      }
 
       return domain;
     },
@@ -215,6 +222,10 @@ export default {
           value: value
         }
       });
+    },
+    script() {
+      let host = window.location.protocol + "//" + window.location.host;
+      return `<script src="${host}/task.js?ref=${this.domain.reference}">`;
     }
   },
   methods: {

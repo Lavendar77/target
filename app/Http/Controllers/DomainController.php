@@ -21,6 +21,7 @@ class DomainController extends Controller
             'user_id' => $request->user()->id,
             'name' => $request->name,
             'base_url' => $request->base_url,
+            'reference' => uniqid() . time(),
         ]);
 
         return redirect()->route('dashboard');

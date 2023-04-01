@@ -18,6 +18,7 @@ class Domain extends Model
         'user_id',
         'name',
         'base_url',
+        'reference',
     ];
 
     /**
