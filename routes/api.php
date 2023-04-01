@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('domains/{reference}', DomainController::class);
+Route::get('domains/{reference}', DomainController::class)->withoutMiddleware('throttle');
