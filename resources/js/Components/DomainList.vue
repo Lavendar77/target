@@ -236,6 +236,8 @@ export default {
       return this.domainId == id;
     },
     setDomainRules(domain) {
+      this.resetDomainRules();
+
       let rules = domain.rules.reduce(function(rule, value) {
         (rule[value['alert_text']] = rule[value['alert_text']] || []).push(value);
 

@@ -17,14 +17,16 @@ class DomainController extends Controller
      */
     public function store(StoreDomainRequest $request): RedirectResponse
     {
-        Domain::query()->create([
+        $domain = Domain::query()->create([
             'user_id' => $request->user()->id,
             'name' => $request->name,
             'base_url' => $request->base_url,
             'reference' => uniqid() . time(),
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard', [
+            'd' => $domain->id,
+        ]);
     }
 
     /**
