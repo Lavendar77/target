@@ -16,8 +16,15 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $domains = $request->user()->domains;
+
+        if ($domain = $request->query('d')) {
+            // get the rules of the domain
+        }
+
         return Inertia::render('Dashboard', [
-            'domains' => $request->user()->domains,
+            'domains' => $domains,
+            'domain' => $domain,
         ]);
     }
 }

@@ -11,9 +11,7 @@
       </div>
     </template>
 
-    <div class="py-12">
-
-    </div>
+    <DomainList :domains="domains" />
 
     <v-dialog
       v-model="openDomainForm"
@@ -29,6 +27,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import DomainForm from '@/Components/DomainForm.vue';
+import DomainList from '@/Components/DomainList.vue';
+
+defineProps({
+  domains: {
+    type: Array,
+  },
+});
 
 const openDomainForm = ref(false);
 </script>

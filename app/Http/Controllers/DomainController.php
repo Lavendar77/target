@@ -27,14 +27,6 @@ class DomainController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Domain $domain)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Domain $domain)
