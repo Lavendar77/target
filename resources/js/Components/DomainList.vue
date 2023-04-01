@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h6 class="text-h6">Choose a domain to manage:</h6>
+    <h6 class="text-h6" v-if="domains.length">Choose a domain to manage:</h6>
+    <v-alert color="warning" icon="$warning" v-else>Create a domain to get started</v-alert>
 
     <v-slide-group
       show-arrows
