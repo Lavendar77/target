@@ -7,7 +7,7 @@ export class DomainRuleGroup {
 
 export class DomainRule {
     constructor() {
-        this.show_alert = null,
+        this.show_alert = 1,
         this.rule = '',
         this.page = ''
     }
