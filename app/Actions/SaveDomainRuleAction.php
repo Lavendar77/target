@@ -34,6 +34,7 @@ class SaveDomainRuleAction
                     'show_alert' => $rule['show_alert'],
                     'rule' => $rule['rule'],
                     'created_at' => $now,
+                    'updated_at' => $now,
                 ];
             }
         }
