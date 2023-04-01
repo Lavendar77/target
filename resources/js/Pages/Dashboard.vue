@@ -1,22 +1,34 @@
+<template>
+  <Head title="Dashboard" />
+
+  <AuthenticatedLayout>
+    <template #header>
+      <div class="d-flex justify-space-between align-self-center">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
+        <v-btn @click="openDomainForm = true">
+          Create Domain
+        </v-btn>
+      </div>
+    </template>
+
+    <div class="py-12">
+
+    </div>
+
+    <v-dialog
+      v-model="openDomainForm"
+      width="1024"
+    >
+      <DomainForm @closeDomainFormDialog="openDomainForm = false" />
+    </v-dialog>
+  </AuthenticatedLayout>
+</template>
+
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import DomainForm from '@/Components/DomainForm.vue';
+
+const openDomainForm = ref(false);
 </script>
-
-<template>
-    <Head title="Dashboard" />
-
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        </template>
-
-        <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">You're logged in!</div>
-                </div>
-            </div>
-        </div>
-    </AuthenticatedLayout>
-</template>
