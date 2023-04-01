@@ -225,7 +225,7 @@ export default {
     },
     script() {
       let host = window.location.protocol + "//" + window.location.host;
-      return `<script src="${host}/alert-service.js?ref=${this.domain.reference}">`;
+      return `<script src="${host}/alert-service.js?ref=${this.domain.reference}"></script>`;
     }
   },
   methods: {
