@@ -29,4 +29,14 @@ class Domain extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the domain rules.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rules(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(DomainRule::class, 'domain_id');
+    }
 }

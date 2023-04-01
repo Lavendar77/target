@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DomainController;
+use App\Http\Controllers\DomainRuleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('/domains', [DomainController::class, 'store'])->name('domain.store');
+    Route::post('/domains/{domain}/rules', [DomainRuleController::class, 'store'])->name('domain.rule.store');
 });
 
 require __DIR__ . '/auth.php';

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDomainRequest;
 use App\Models\Domain;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class DomainController extends Controller
 {
@@ -24,29 +23,5 @@ class DomainController extends Controller
         ]);
 
         return redirect()->route('dashboard');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Domain $domain)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Domain $domain)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Domain $domain)
-    {
-        //
     }
 }
