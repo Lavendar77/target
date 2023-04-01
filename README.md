@@ -1,6 +1,8 @@
 # Target
 Enable users to set page targeting rules for a simple JS alert function.
 
+[![Actions Status](https://github.com/lavendar77/target/workflows/Fly-Deploy/badge.svg)](https://github.com/lavendar77/target/actions)
+
 ## Database Design
 https://dbdiagram.io/d/64281cd05758ac5f1725ed05
 
