@@ -29,6 +29,8 @@ class DomainRuleController extends Controller
         // store the rules
         $saveDomainRuleAction->create($domain->id, $request->domain_rules);
 
+        session()->flash('message', 'Domain rules saved successfully.');
+
         return redirect()->route('dashboard', [
             'd' => $domain->id,
         ]);

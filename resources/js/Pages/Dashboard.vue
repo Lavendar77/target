@@ -11,7 +11,19 @@
       </div>
     </template>
 
-    <DomainList :domains="domains" :domainId="domain_id" :domainRuleEnum="rules" :errors="errors" />
+    <v-alert
+      color="success"
+      icon="$success"
+      :title="$page.props.flash.message"
+      v-if="$page.props.flash.message"
+    ></v-alert>
+
+    <DomainList
+      :domains="domains"
+      :domainId="domain_id"
+      :domainRuleEnum="rules"
+      :errors="errors"
+    />
 
     <v-dialog
       v-model="openDomainForm"

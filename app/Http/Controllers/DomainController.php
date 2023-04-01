@@ -24,6 +24,8 @@ class DomainController extends Controller
             'reference' => uniqid() . time(),
         ]);
 
+        session()->flash('message', 'Domain created successfully.');
+
         return redirect()->route('dashboard', [
             'd' => $domain->id,
         ]);
@@ -42,7 +44,9 @@ class DomainController extends Controller
             Response::HTTP_UNAUTHORIZED,
         );
 
-        $domain->delete();
+        $domain->deleteOrFail();
+
+        session()->flash('message', 'Domain deleted successfully.');
 
         return redirect()->route('dashboard');
     }
