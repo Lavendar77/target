@@ -11,7 +11,7 @@
       </div>
     </template>
 
-    <DomainList :domains="domains" :domainId="domain_id" :domainRuleEnum="rules" />
+    <DomainList :domains="domains" :domainId="domain_id" :domainRuleEnum="rules" :errors="errors" />
 
     <v-dialog
       v-model="openDomainForm"
@@ -39,7 +39,8 @@ defineProps({
   },
   rules: {
     type: Array
-  }
+  },
+  errors: Object
 });
 
 const openDomainForm = ref(false);

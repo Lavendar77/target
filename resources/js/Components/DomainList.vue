@@ -53,6 +53,14 @@
           Add Alert Group
         </v-btn>
 
+        <v-alert
+          color="error"
+          icon="$error"
+          title="Invalid data"
+          :text="errors.domain_rules"
+          v-if="errors"
+        ></v-alert>
+
         <v-card-text v-for="(domainRule, index) in domainRules" :key="index">
           <p class="text-subtitle-1 font-weight-bold text-primary">
             Alert #{{ index + 1 }}
@@ -175,6 +183,9 @@ export default {
     domainRuleEnum: {
       type: Array,
       required: true,
+    },
+    errors: {
+      type: Object
     }
   },
   data() {
