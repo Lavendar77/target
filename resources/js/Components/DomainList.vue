@@ -106,7 +106,6 @@
                       item-value="value"
                       variant="underlined"
                       v-model="rule.show_alert"
-                      :rules="[rules.required]"
                     ></v-select>
                   </td>
                   <td>
@@ -202,7 +201,7 @@ export default {
       return this.domainRuleEnum.map((value) => {
         return {
           title: value.replace('_', ' '),
-          key: value.replace('_', ' ')
+          value: value
         }
       });
     }
