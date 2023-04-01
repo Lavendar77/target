@@ -20,7 +20,6 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
-        "phpstan/phpstan": "^1.10",
         "phpunit/phpunit": "^10.0",
         "spatie/laravel-ignition": "^2.0"
     },
@@ -50,15 +49,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "phpstan": [
-            "./vendor/bin/phpstan analyse"
-        ],
         "pint": [
             "./vendor/bin/pint"
         ]
     },
     "scripts-descriptions": {
-        "phpstan": "Run PHPStan static analysis against your application",
         "pint": "Run Laravel Pint coding style analysis against your application"
     },
     "extra": {
