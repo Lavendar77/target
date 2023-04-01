@@ -16,8 +16,8 @@ async function bootTargetScript() {
                 applyTargetRulesToApp(domain.rules);
             }
         })
-        .catch(() => {
-            console.error('Script not installed correctly.')
+        .catch((error) => {
+            console.error('Script not installed correctly.', error)
         });
 }
 
@@ -39,9 +39,48 @@ function confirmTargetDomain(url) {
 function applyTargetRulesToApp(rules) {
     let currentAppPath = window.location.pathname;
 
-    rules.forEach((rule) => {
-        //
-    })
+    let alerts = rules.filter((rule) => currentAppPath.includes(rule.page));
+    let alertsToShow = [];
+
+    alerts.forEach((alert) => {
+        if (alert.show_alert) {
+            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, alert.page)) {
+                alertsToShow.push({
+                    id: alert.id,
+                    text: alert.alert_text,
+                });
+            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath, alert.page)) {
+                alertsToShow.push({
+                    id: alert.id,
+                    text: alert.alert_text,
+                });
+            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), alert.page)) {
+                alertsToShow.push({
+                    id: alert.id,
+                    text: alert.alert_text,
+                });
+            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, alert.page)) {
+                alertsToShow.push({
+                    id: alert.id,
+                    text: alert.alert_text,
+                });
+            }
+        } else {
+            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, alert.page)) {
+                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
+            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath, alert.page)) {
+                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
+            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), alert.page)) {
+                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
+            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, alert.page)) {
+                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
+            }
+        }
+    });
+
+    alertsToShow.forEach((alertToShow) => {
+        alert(alertToShow.text);
+    });
 }
 
 /**
