@@ -44,7 +44,7 @@
 
       <v-code class="py-3 pa-4" v-if="domain.rules.length">
         Add this script to the &lt;head&gt; of your domain:<br />
-        <b>{{ script }}</b>
+        <b v-html="script"></b>
       </v-code>
 
       <v-form ref="domainRuleForm" @submit.prevent="submitDomainRule">
@@ -225,7 +225,7 @@ export default {
     },
     script() {
       let host = window.location.protocol + "//" + window.location.host;
-      return `<script src="${host}/alert-service.js?ref=${this.domain.reference}"></script>`;
+      return `&lt;script src="${host}/alert-worker.js?ref=${this.domain.reference}"&gt;` + '&lt;/script&gt;';
     }
   },
   methods: {
