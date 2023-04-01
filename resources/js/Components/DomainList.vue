@@ -122,9 +122,8 @@
                   <td>
                     <v-text-field
                       v-model="rule.page"
-                      :rules="[rules.required]"
                       label="Page"
-                      hint="Page on website"
+                      hint="Page on website. Leave blank for the homepage"
                       placeholder="about"
                       :prefix="domain.base_url + '/'"
                       variant="underlined"

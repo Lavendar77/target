@@ -48,7 +48,7 @@ class StoreDomainRuleRequest extends FormRequest
                 new Enum(DomainRuleEnum::class),
             ],
             'domain_rules.*.rules.*.page' => [
-                'required',
+                'nullable',
                 'string',
                 'max:100',
             ],

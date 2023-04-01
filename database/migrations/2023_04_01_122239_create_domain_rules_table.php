@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('domain_id')->constrained()->cascadeOnDelete();
             $table->string('alert_text');
-            $table->string('page');
+            $table->string('page')->nullable();
             $table->boolean('show_alert');
             $table->string('rule')->comment('Enum:DomainRuleEnum');
             $table->timestamps();
