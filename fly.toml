@@ -13,10 +13,12 @@ processes = []
     PHP_VERSION = "8.1"
 
 [env]
+  APP_NAME = "Target"
   APP_ENV = "production"
   LOG_CHANNEL = "stderr"
   LOG_LEVEL = "info"
   LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+  DB_CONNECTION = "pgsql"
 
 [[services]]
   internal_port = 8080
