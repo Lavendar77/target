@@ -164,7 +164,7 @@
             variant="tonal"
             block
           >
-            Submit Domain Rule
+            Submit Domain Rules
           </v-btn>
         </v-card-actions>
       </v-form>
