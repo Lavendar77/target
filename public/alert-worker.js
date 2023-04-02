@@ -40,6 +40,7 @@ function applyTargetRulesToApp(rules) {
     let currentAppPath = window.location.pathname;
 
     let alerts = rules.filter((rule) => currentAppPath.includes(rule.page) || rule.page == null);
+
     let alertsToShow = [];
 
     alerts.forEach((alert) => {
@@ -82,6 +83,11 @@ function applyTargetRulesToApp(rules) {
 
     alertsToShow
         .filter((value, index, self) => index === self.findIndex((alertToShow) => alertToShow.text === value.text))
+        .forEach((alertToShow) => {
+            if (alerts.some((a) => a.alert_text == alertToShow.text && a.show_alert == true)) {
+                alert(alertToShow.text);
+            }
+        });
 }
 
 /**
