@@ -5,7 +5,7 @@
     <template #header>
       <div class="d-flex justify-space-between align-self-center">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
-        <v-btn @click="openDomainForm = true">
+        <v-btn @click="openNewDomainForm">
           Create Domain
         </v-btn>
       </div>
@@ -64,6 +64,10 @@ export default {
     }
   },
   methods: {
+    openNewDomainForm() {
+      this.domain = null;
+      this.openDomainForm = true;
+    },
     openDomainFormDialog(domain) {
       this.domain = domain;
       this.openDomainForm = true;
