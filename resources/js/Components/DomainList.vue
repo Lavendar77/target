@@ -60,7 +60,7 @@
           @click="addRuleGroup()"
           title="Add Alert Group"
         >
-          Add Alert Group
+          Add New Alert Message
         </v-btn>
 
         <v-alert
@@ -73,14 +73,15 @@
 
         <v-card-text v-for="(domainRule, index) in domainRules" :key="index">
           <p class="text-subtitle-1 font-weight-bold text-primary">
-            Alert #{{ index + 1 }}
+            {{ index + 1 }}. Alert
+            <span v-if="domainRule.alert_text">to Show "{{ domainRule.alert_text }}"</span>
 
             <v-btn
               icon="mdi-delete"
               color="error"
               variant="text"
               @click="deleteRuleGroup(index)"
-              title="Delete Alert Group"
+              title="Delete Alert Message"
               v-if="domainRules.length > 1"
             ></v-btn>
           </p>
@@ -103,12 +104,14 @@
                   <th width="40%">Page Link</th>
                   <th>
                     <v-btn
-                      icon="mdi-plus"
+                      prepend-icon="mdi-plus"
                       color="success"
                       variant="text"
                       @click="addRule(index)"
-                      title="Add Alert Rule"
-                    ></v-btn>
+                      :title="`Add New Rule for ${domainRule.alert_text}`"
+                    >
+                      Add New Rule
+                    </v-btn>
                   </th>
                 </tr>
               </thead>
