@@ -84,7 +84,7 @@ function applyTargetRulesToApp(rules) {
     alertsToShow
         .filter((value, index, self) => index === self.findIndex((alertToShow) => alertToShow.text === value.text))
         .forEach((alertToShow) => {
-            if (alerts.some((a) => a.alert_text == alertToShow.text && a.show_alert == true)) {
+            if (alerts.filter((a) => a.alert_text == alertToShow.text).every((a) => a.show_alert == true)) {
                 alert(alertToShow.text);
             }
         });
