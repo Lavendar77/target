@@ -80,9 +80,8 @@ function applyTargetRulesToApp(rules) {
         }
     });
 
-    alertsToShow.forEach((alertToShow) => {
-        alert(alertToShow.text);
-    });
+    alertsToShow
+        .filter((value, index, self) => index === self.findIndex((alertToShow) => alertToShow.text === value.text))
 }
 
 /**
