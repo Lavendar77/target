@@ -41,51 +41,19 @@ function applyTargetRulesToApp(rules) {
 
     let alerts = rules.filter((rule) => currentAppPath.includes(rule.page) || rule.page == null);
 
-    let alertsToShow = [];
-
-    alerts.forEach((alert) => {
-        let page = alert.page ? alert.page : '';
-
-        if (alert.show_alert) {
-            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, page)) {
-                alertsToShow.push({
-                    id: alert.id,
-                    text: alert.alert_text,
-                });
-            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath.replace('/', ''), page)) {
-                alertsToShow.push({
-                    id: alert.id,
-                    text: alert.alert_text,
-                });
-            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), page)) {
-                alertsToShow.push({
-                    id: alert.id,
-                    text: alert.alert_text,
-                });
-            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, page)) {
-                alertsToShow.push({
-                    id: alert.id,
-                    text: alert.alert_text,
-                });
-            }
-        } else {
-            if (alert.rule === 'contains' && targetRuleContains(currentAppPath, page)) {
-                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            } else if (alert.rule === 'exact' && targetRuleExact(currentAppPath.replace('/', ''), page)) {
-                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(currentAppPath.replace('/', ''), page)) {
-                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(currentAppPath, page)) {
-                alertsToShow.splice(alertsToShow.findIndex((alert) => alert.id === alert.id), 1);
-            }
-        }
-    });
+    let alertsToShow = targetRulesChecker(currentAppPath, alerts);
 
     alertsToShow
-        .filter((value, index, self) => index === self.findIndex((alertToShow) => alertToShow.text === value.text))
+        .filter((value, index, self) => index === self.findIndex((alertToShow) => alertToShow.alert_text === value.alert_text))
         .forEach((alertToShow) => {
-            if (alerts.filter((a) => a.alert_text == alertToShow.text).every((a) => a.show_alert == true)) {
-                alert(alertToShow.text);
+            let similarAlerts = targetRulesChecker(
+                currentAppPath,
+                alerts.filter((a) => a.alert_text == alertToShow.alert_text),
+                false
+            );
+
+            if (similarAlerts.length && similarAlerts.every((a) => a.show_alert == true)) {
+                alert(alertToShow.alert_text);
             }
         });
 }
@@ -132,4 +100,46 @@ function targetRuleStartsWith(path, page) {
  */
 function targetRuleEndsWith(path, page) {
     return path.endsWith(page);
+}
+
+/**
+ * Check path in alerts against the different rules.
+ *
+ * @param {string} path
+ * @param {array} alerts
+ * @param {boolean} checkAlertStatus check if rule was set to show or not
+ * @returns array
+ */
+function targetRulesChecker(path, alerts, checkAlertStatus = true) {
+    let result = [];
+
+    alerts.forEach((alert) => {
+        let page = alert.page ? alert.page : '';
+
+        if (alert.show_alert || checkAlertStatus == false) {
+            if (alert.rule === 'contains' && targetRuleContains(path, page)) {
+                result.push(alert);
+            } else if (alert.rule === 'exact' && targetRuleExact(path.replace('/', ''), page)) {
+                result.push(alert);
+            } else if (alert.rule === 'starts_with' && targetRuleStartsWith(path.replace('/', ''), page)) {
+                result.push(alert);
+            } else if (alert.rule === 'ends_with' && targetRuleEndsWith(path, page)) {
+                result.push(alert);
+            }
+        } else {
+            if (checkAlertStatus) {
+                if (alert.rule === 'contains' && targetRuleContains(path, page)) {
+                    result.splice(result.findIndex((alert) => alert.id === alert.id), 1);
+                } else if (alert.rule === 'exact' && targetRuleExact(path.replace('/', ''), page)) {
+                    result.splice(result.findIndex((alert) => alert.id === alert.id), 1);
+                } else if (alert.rule === 'starts_with' && targetRuleStartsWith(path.replace('/', ''), page)) {
+                    result.splice(result.findIndex((alert) => alert.id === alert.id), 1);
+                } else if (alert.rule === 'ends_with' && targetRuleEndsWith(path, page)) {
+                    result.splice(result.findIndex((alert) => alert.id === alert.id), 1);
+                }
+            }
+        }
+    });
+
+    return result;
 }
